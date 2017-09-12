@@ -1,0 +1,12 @@
+Create GIT Repository
+1.- cmd set the current project folder
+2.- git init
+3.- git add -all
+4.- git commit -m "initial commit"
+5.- copy from gitHub: 
+git remote add origin https://github.com/xavl369/PhaserDemo.git
+git push -u origin master
+
+
+Phaser
+-Phaser.Keyboard.A 
