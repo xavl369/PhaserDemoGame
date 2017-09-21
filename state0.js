@@ -1,19 +1,47 @@
 //GAME STATE 0
-var demo = {};
+var demo = {}, centerX = 1500 / 2, centerY = 1000 / 2, adam, speed = 4;
+
 demo.state0 = function(){};
 demo.state0.prototype = {
 
-	preload: function(){}, //only call once (loading images)
+	preload: function(){ //only call once (loading images)
+		game.load.image("adam", "assets/sprites/adam.png");
+
+	}, 
 	create: function(){  //setting initial values for everything in the game state
-		game.stage.backgroundColor = "#000000";
+		game.stage.backgroundColor = "#800080";
 		//Event listeners are LOCAL to the state                                      
 		//game.input.keyboard.addKey(Phaser.Keyboard.ONE).onDown.add(changeState, null, null, 1);
 		addChangeStateEventListener();
 
+		//Resize Window
+		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+		//add iamge
+		adam = game.add.sprite(centerX, centerY, "adam");
+		//adam.anchor.x = 0.5;
+		//adam.anchor.x = 0.5;
+		adam.anchor.setTo(0.5, 0.5);
 		console.log("state0");
 
 	}, 
-	update: function(){}   //update frame of the game
+	update: function(){ //update frame of the game
+
+		if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+			adam.x += speed;
+		}
+		else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+			adam.x -= speed;
+		}
+
+		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+			adam.y -= speed;
+		}
+		else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+			adam.y += speed;
+		}
+
+	}   
 };
 
 //are GLOBAL
