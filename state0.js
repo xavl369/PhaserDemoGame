@@ -1,41 +1,72 @@
 //GAME STATE 0
-var demo = {}, centerX = 1500 / 2, centerY = 1000 / 2, adam, speed = 4;
+var demo = {}, 
+	centerX = 1500 / 2, 
+	centerY = 1000 / 2,
+	adam, speed = 5;
 
 demo.state0 = function(){};
 demo.state0.prototype = {
 
 	preload: function(){ //only call once (loading images)
-		game.load.image("adam", "assets/sprites/adam.png");
+		//game.load.image("adam", "assets/sprites/adam.png");
+		game.load.spritesheet("adam", "assets/spritesheets/adamSheet.png", 240,370);
+		game.load.image("tree", "assets/backgrounds/treeBG.png");
 
 	}, 
 	create: function(){  //setting initial values for everything in the game state
+
+		game.physics.startSystem(Phaser.Physics.ARCADE);
+
 		game.stage.backgroundColor = "#800080";
 		//Event listeners are LOCAL to the state                                      
 		//game.input.keyboard.addKey(Phaser.Keyboard.ONE).onDown.add(changeState, null, null, 1);
 		addChangeStateEventListener();
 
+		//Bounds of the game
+		game.world.setBounds(0, 0, 2813, 1000);		
 		//Resize Window
 		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
 		//add iamge
+		var treeBG = game.add.sprite(0, 0, 'tree');
 		adam = game.add.sprite(centerX, centerY, "adam");
 		//adam.anchor.x = 0.5;
 		//adam.anchor.x = 0.5;
 		adam.anchor.setTo(0.5, 0.5);
+		adam.scale.setTo(0.7, 0.7);
+		game.physics.enable(adam);
+		adam.body.collideWorldBounds = true;
+
+		adam.animations.add('walk', [0,1,2,3,4]);
+
+		game.camera.follow(adam);
+		game.camera.deadzone = new Rectangle(centerX - 300, 0, 600, 1000);
 		console.log("state0");
 
 	}, 
 	update: function(){ //update frame of the game
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+			adam.scale.setTo(0.7, 0.7)
 			adam.x += speed;
+			adam.animations.play('walk', 14, true);
 		}
 		else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+			adam.scale.setTo(-0.7, 0.7)
 			adam.x -= speed;
+			adam.animations.play('walk', 14, true);
+		}
+		else{
+			adam.animations.stop('walk');
+			adam.frame = 0;
+
 		}
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
 			adam.y -= speed;
+			if(adam.y < 395){
+				adam.y = 395;
+			}
 		}
 		else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
 			adam.y += speed;
