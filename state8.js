@@ -4,8 +4,8 @@ demo.state8.prototype = {
 
 	preload: function(){}, //only call once (loading images)
 	create: function(){  //setting initial values for everything in the game state
-		game.stage.backgroundColor = "#80ff80";
-		console.log("state 8");
+		game.stage.backgroundColor = "#1a1aff";
+		//console.log("state 8");
 		addChangeStateEventListener();
 
 	}, 

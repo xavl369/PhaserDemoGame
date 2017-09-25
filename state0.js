@@ -78,7 +78,7 @@ demo.state0.prototype = {
 //are GLOBAL
 function changeState(i, stateNum){
 	game.state.start('state' + stateNum);
-	//console.log(i);
+	console.log('state' + stateNum);
 }
 
 function addKeyCallback(key, fn, args){
